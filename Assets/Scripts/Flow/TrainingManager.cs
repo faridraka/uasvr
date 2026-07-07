@@ -27,6 +27,36 @@ public class TrainingManager : MonoBehaviour
     public bool isLoadDelivered = false;
     public bool isEmergencyStopped = false;
 
+    [ContextMenu("DEBUG - Set EngineStart")]
+    public void DebugSetEngineStart()
+    {
+        ChangeStep(TrainingStep.EngineStart);
+    }
+
+    [ContextMenu("DEBUG - Set Operate")]
+    public void DebugSetOperate()
+    {
+        ChangeStep(TrainingStep.Operate);
+    }
+
+    [ContextMenu("DEBUG - Set MoveLoad")]
+    public void DebugSetMoveLoad()
+    {
+        ChangeStep(TrainingStep.MoveLoad);
+    }
+
+    [ContextMenu("DEBUG - Set StopMachine")]
+    public void DebugSetStopMachine()
+    {
+        ChangeStep(TrainingStep.StopMachine);
+    }
+
+    [ContextMenu("DEBUG - Set Complete")]
+    public void DebugSetComplete()
+    {
+        ChangeStep(TrainingStep.Complete);
+    }
+
     public event Action<TrainingStep> OnStepChanged;
     public event Action<string> OnWarning;
     public event Action OnMistake;
