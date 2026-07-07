@@ -16,13 +16,16 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
         HandleMouseLook();
         HandleMovement();
+        HandleCursorToggle();
     }
 
     void HandleMouseLook()
@@ -34,13 +37,16 @@ public class PlayerController : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        if (cameraTransform != null)
+            cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 
     void HandleMovement()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
         Vector3 move = transform.right * x + transform.forward * z;
 
         if (controller.isGrounded && verticalVelocity < 0)
@@ -50,5 +56,22 @@ public class PlayerController : MonoBehaviour
         move.y = verticalVelocity;
 
         controller.Move(move * moveSpeed * Time.deltaTime);
+    }
+
+    void HandleCursorToggle()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
     }
 }

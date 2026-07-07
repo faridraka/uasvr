@@ -1,7 +1,15 @@
 using UnityEngine;
+
 public class ZoneTrigger : MonoBehaviour
 {
-    public enum ZoneType { SafetyZone, DangerZone, TargetArea, MachineArea, FinishZone }
+    public enum ZoneType
+    {
+        SafetyZone,
+        DangerZone,
+        TargetArea,
+        MachineArea,
+        FinishZone
+    }
 
     [Header("Setting Zone")]
     public ZoneType zoneType;
@@ -12,10 +20,16 @@ public class ZoneTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (zoneType == ZoneType.SafetyZone && other.CompareTag("Player"))
+        {
             TrainingManager.Instance.SetPlayerInSafeZone(true);
+            Debug.Log("Player masuk Safety Zone");
+        }
 
         if (zoneType == ZoneType.MachineArea && other.CompareTag("Player"))
+        {
             TrainingManager.Instance.SetPlayerInMachineArea(true);
+            Debug.Log("Player masuk Machine Area");
+        }
 
         if (zoneType == ZoneType.DangerZone)
         {
@@ -28,6 +42,7 @@ public class ZoneTrigger : MonoBehaviour
         if (zoneType == ZoneType.TargetArea && other.CompareTag("Load"))
         {
             LoadCargo load = other.GetComponent<LoadCargo>();
+
             if (load != null)
                 load.OnEnterTargetArea(targetIndex);
         }
@@ -36,9 +51,15 @@ public class ZoneTrigger : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (zoneType == ZoneType.SafetyZone && other.CompareTag("Player"))
+        {
             TrainingManager.Instance.SetPlayerInSafeZone(false);
+            Debug.Log("Player keluar Safety Zone");
+        }
 
         if (zoneType == ZoneType.MachineArea && other.CompareTag("Player"))
+        {
             TrainingManager.Instance.SetPlayerInMachineArea(false);
+            Debug.Log("Player keluar Machine Area");
+        }
     }
 }

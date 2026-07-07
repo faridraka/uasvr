@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 
-// TrainingManager = otak utama game. Semua step, validasi urutan, dan event ada di sini.
-// Script lain (UI, Audio, Interactable) tinggal subscribe ke event2 ini, ga perlu saling refer langsung.
 public class TrainingManager : MonoBehaviour
 {
     public static TrainingManager Instance { get; private set; }
@@ -18,7 +16,7 @@ public class TrainingManager : MonoBehaviour
         Complete
     }
 
-    [Header("State Saat Ini (buat debug di Inspector)")]
+    [Header("State Saat Ini")]
     public TrainingStep currentStep = TrainingStep.NotStarted;
 
     [Header("Status Flags")]
@@ -29,7 +27,6 @@ public class TrainingManager : MonoBehaviour
     public bool isLoadDelivered = false;
     public bool isEmergencyStopped = false;
 
-    // Event2 ini yang bikin script lain (UI, Audio, dll) bisa "dengerin" perubahan tanpa saling nempel
     public event Action<TrainingStep> OnStepChanged;
     public event Action<string> OnWarning;
     public event Action OnMistake;
@@ -38,7 +35,12 @@ public class TrainingManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 
@@ -54,14 +56,18 @@ public class TrainingManager : MonoBehaviour
         Debug.Log("[TrainingManager] Step berubah ke: " + newStep);
     }
 
-    // Dipanggil dari SafetyPanel.cs
+    public void ShowWarning(string message)
+    {
+        OnWarning?.Invoke(message);
+    }
+
     public void CompleteSafetyCheck()
     {
         if (isEmergencyStopped) return;
 
         if (!isPlayerInSafeZone)
         {
-            OnWarning?.Invoke("Kamu harus berada di Safe Zone dulu sebelum safety check!");
+            ShowWarning("Kamu harus berada di Safe Zone dulu sebelum safety check!");
             return;
         }
 
@@ -69,21 +75,20 @@ public class TrainingManager : MonoBehaviour
         ChangeStep(TrainingStep.EngineStart);
     }
 
-    // Dipanggil dari EngineButton.cs
     public void TryStartEngine()
     {
         if (isEmergencyStopped) return;
 
         if (!isSafetyCheckDone)
         {
-            OnWarning?.Invoke("Safety Check belum selesai! Engine tidak bisa dinyalakan.");
+            ShowWarning("Safety Check belum selesai! Engine tidak bisa dinyalakan.");
             OnMistake?.Invoke();
             return;
         }
 
         if (!isInMachineArea)
         {
-            OnWarning?.Invoke("Kamu harus berada di area operator/cockpit dulu.");
+            ShowWarning("Kamu harus berada di area operator/cockpit dulu.");
             return;
         }
 
@@ -91,14 +96,13 @@ public class TrainingManager : MonoBehaviour
         ChangeStep(TrainingStep.Operate);
     }
 
-    // Dipanggil dari ControlLever.cs
     public void OperateControl()
     {
         if (isEmergencyStopped) return;
 
         if (!isEngineOn)
         {
-            OnWarning?.Invoke("Mesin belum menyala!");
+            ShowWarning("Mesin belum menyala!");
             OnMistake?.Invoke();
             return;
         }
@@ -109,26 +113,25 @@ public class TrainingManager : MonoBehaviour
         }
     }
 
-    // Dipanggil dari AdvancedLoadTask.cs atau LoadCargo.cs kalau ga pakai advanced task
     public void ReportLoadDelivered()
     {
         if (isEmergencyStopped) return;
 
         isLoadDelivered = true;
+
         if (currentStep == TrainingStep.MoveLoad)
         {
             ChangeStep(TrainingStep.StopMachine);
         }
     }
 
-    // Dipanggil dari EngineButton.cs pas ditekan lagi buat matiin mesin
     public void TryStopEngine()
     {
         if (isEmergencyStopped) return;
 
         if (!isLoadDelivered)
         {
-            OnWarning?.Invoke("Load belum sampai target, jangan matikan mesin dulu.");
+            ShowWarning("Load belum sampai target, jangan matikan mesin dulu.");
             OnMistake?.Invoke();
             return;
         }
@@ -138,23 +141,29 @@ public class TrainingManager : MonoBehaviour
         OnTrainingComplete?.Invoke();
     }
 
-    // Dipanggil dari ZoneTrigger.cs
-    public void SetPlayerInSafeZone(bool value) => isPlayerInSafeZone = value;
-    public void SetPlayerInMachineArea(bool value) => isInMachineArea = value;
+    public void SetPlayerInSafeZone(bool value)
+    {
+        isPlayerInSafeZone = value;
+    }
+
+    public void SetPlayerInMachineArea(bool value)
+    {
+        isInMachineArea = value;
+    }
 
     public void ReportDangerZoneEntered(string what)
     {
-        OnWarning?.Invoke(what + " memasuki Danger Zone!");
+        ShowWarning(what + " memasuki Danger Zone!");
         OnMistake?.Invoke();
     }
 
-    // Dipanggil dari EmergencyStopButton.cs
     public void TriggerEmergencyStop()
     {
         isEmergencyStopped = true;
         isEngineOn = false;
+
         OnEmergencyStop?.Invoke();
-        OnWarning?.Invoke("EMERGENCY STOP AKTIF! Semua kontrol dikunci.");
+        ShowWarning("EMERGENCY STOP AKTIF! Semua kontrol dikunci.");
     }
 
     public void ResetEmergencyStop()
