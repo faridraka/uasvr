@@ -82,6 +82,7 @@ public class SafetyPanel : InteractableObject
         if (helmDone && rompiDone && sarungTanganDone)
         {
             statusText.text = "Semua atribut keselamatan sudah terpasang";
+            promptMessage = "";
 
             TrainingManager.Instance.CompleteSafetyCheck();
             FlashHighlight();

@@ -371,7 +371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 37026316}
   - component: {fileID: 37026317}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Sarung Tangan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +565,7 @@ GameObject:
   - component: {fileID: 55352674}
   - component: {fileID: 55352676}
   - component: {fileID: 55352675}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 58392364}
   - component: {fileID: 58392366}
   - component: {fileID: 58392365}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1051,7 +1051,7 @@ Transform:
   m_Children:
   - {fileID: 1171641772}
   - {fileID: 681321180}
-  m_Father: {fileID: 1482713704}
+  m_Father: {fileID: 1722364644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &95675335
 GameObject:
@@ -1862,7 +1862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 200584577}
   - component: {fileID: 200584578}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Helm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2071,8 +2071,8 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 0
-  promptText: {fileID: 0}
   interactKey: 101
+  spatialUI: {fileID: 0}
 --- !u!1001 &220578683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2585,6 +2585,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7125589774974728447, guid: 9f50fdb071f54674f8166b46f510ad84, type: 3}
   m_PrefabInstance: {fileID: 303128096}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &314292681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314292684}
+  - component: {fileID: 314292683}
+  - component: {fileID: 314292682}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &314292682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314292681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
+--- !u!114 &314292683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314292681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &314292684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314292681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &316601004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,7 +2710,7 @@ GameObject:
   - component: {fileID: 330333544}
   - component: {fileID: 330333546}
   - component: {fileID: 330333545}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2704,6 +2783,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2784,7 +2864,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1930840425}
-  - {fileID: 965713277}
   m_Father: {fileID: 419829403}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &330585547
@@ -2831,6 +2910,24 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dc233652ed1c414b8f79902772f8141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionRaycast
+  interactRange: 3
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  interactKey: 101
+  spatialUI: {fileID: 1930840429}
 --- !u!1001 &333128736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4638,7 +4735,7 @@ Transform:
   m_Children:
   - {fileID: 316601005}
   - {fileID: 36449210}
-  m_Father: {fileID: 1482713704}
+  m_Father: {fileID: 1722364644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &609106640
 PrefabInstance:
@@ -4838,7 +4935,7 @@ GameObject:
   - component: {fileID: 615358567}
   - component: {fileID: 615358566}
   m_Layer: 5
-  m_Name: WarningText
+  m_Name: MessageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4949,7 +5046,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -20.051239, y: 0, z: -25.763474, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5378,7 +5475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 648246079}
   - component: {fileID: 648246080}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5464,7 +5561,7 @@ GameObject:
   - component: {fileID: 666269419}
   - component: {fileID: 666269421}
   - component: {fileID: 666269420}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5912,7 +6009,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684141508}
   - component: {fileID: 684141509}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: APD Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6230,7 +6327,7 @@ GameObject:
   - component: {fileID: 732328907}
   - component: {fileID: 732328909}
   - component: {fileID: 732328908}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7570,85 +7667,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 241604333817642279, guid: b091a5595b5f3e84c8aaa0f3b2bee8c4, type: 3}
   m_PrefabInstance: {fileID: 954912667}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &965713276
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 965713277}
-  - component: {fileID: 965713279}
-  - component: {fileID: 965713278}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &965713277
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965713276}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -2.6, z: 30.03}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 330585546}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &965713278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965713276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
-  m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
---- !u!114 &965713279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965713276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
 --- !u!1 &979614088
 GameObject:
   m_ObjectHideFlags: 0
@@ -7659,6 +7677,7 @@ GameObject:
   m_Component:
   - component: {fileID: 979614090}
   - component: {fileID: 979614089}
+  - component: {fileID: 979614091}
   m_Layer: 0
   m_Name: Safety Zone
   m_TagString: Untagged
@@ -7702,9 +7721,22 @@ Transform:
   m_Children:
   - {fileID: 557896966}
   - {fileID: 188399327}
-  - {fileID: 1168030782}
   m_Father: {fileID: 1482713704}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &979614091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979614088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabc028ee953348409e5bfab82236923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoneTrigger
+  zoneType: 0
+  targetIndex: 0
 --- !u!1 &1003809353
 GameObject:
   m_ObjectHideFlags: 0
@@ -8083,7 +8115,7 @@ GameObject:
   - component: {fileID: 1068712945}
   - component: {fileID: 1068712947}
   - component: {fileID: 1068712946}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8484,7 +8516,7 @@ GameObject:
   - component: {fileID: 1168030783}
   - component: {fileID: 1168030786}
   - component: {fileID: 1168030787}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Safety Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8498,17 +8530,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168030781}
-  m_LocalRotation: {x: 0.15304591, y: -0.6903456, z: 0.15304591, w: 0.6903456}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002040091, y: 0.002040091, z: 0.002040091}
+  m_LocalRotation: {x: 0.1530459, y: -0.6903456, z: 0.15304592, w: 0.69034547}
+  m_LocalPosition: {x: 0, y: 0, z: 3.78}
+  m_LocalScale: {x: 0.0020400912, y: 0.0020400914, z: 0.0020400912}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1431677110}
-  m_Father: {fileID: 979614090}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 25, y: -90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1, y: 1.5}
+  m_AnchoredPosition: {x: -9.08, y: 6.5}
   m_SizeDelta: {x: 1055, y: 615.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1168030783
@@ -8587,9 +8619,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2c85ae71f0603408ba7aff13fef78f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SafetyPanel
-  promptMessage: Tekan E untuk berinteraksi
+  promptMessage: 'Tekan Toggle '
   objectRenderer: {fileID: 0}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  helmToggle: {fileID: 1831458620}
+  rompiToggle: {fileID: 1756593205}
+  sarungTanganToggle: {fileID: 648246080}
+  statusText: {fileID: 1618750727}
 --- !u!65 &1168030787
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8609,7 +8645,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1055, y: 615.5, z: 10}
+  m_Size: {x: 1055, y: 615.5, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1168241767
 PrefabInstance:
@@ -8785,7 +8821,7 @@ GameObject:
   - component: {fileID: 1197953288}
   - component: {fileID: 1197953290}
   - component: {fileID: 1197953289}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9598,7 +9634,7 @@ GameObject:
   - component: {fileID: 1307719565}
   - component: {fileID: 1307719567}
   - component: {fileID: 1307719566}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10645,7 +10681,7 @@ GameObject:
   - component: {fileID: 1431677110}
   - component: {fileID: 1431677112}
   - component: {fileID: 1431677111}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11210,8 +11246,7 @@ Transform:
   - {fileID: 979614090}
   - {fileID: 428357003}
   - {fileID: 346205740}
-  - {fileID: 88221031}
-  - {fileID: 576377083}
+  - {fileID: 1722364644}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1486221304
@@ -11957,7 +11992,7 @@ GameObject:
   - component: {fileID: 1567882876}
   - component: {fileID: 1567882878}
   - component: {fileID: 1567882877}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12032,7 +12067,7 @@ GameObject:
   - component: {fileID: 1600714400}
   - component: {fileID: 1600714402}
   - component: {fileID: 1600714401}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12198,7 +12233,7 @@ GameObject:
   - component: {fileID: 1618750726}
   - component: {fileID: 1618750728}
   - component: {fileID: 1618750727}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Status APD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12841,7 +12876,7 @@ GameObject:
   - component: {fileID: 1710539842}
   - component: {fileID: 1710539844}
   - component: {fileID: 1710539843}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12902,6 +12937,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710539841}
   m_CullTransparentMesh: 1
+--- !u!1 &1722364643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1722364644}
+  m_Layer: 0
+  m_Name: Target Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1722364644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722364643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 88221031}
+  - {fileID: 576377083}
+  m_Father: {fileID: 1482713704}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1738071327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13045,7 +13113,7 @@ GameObject:
   - component: {fileID: 1752908034}
   - component: {fileID: 1752908036}
   - component: {fileID: 1752908035}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13116,7 +13184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1756593204}
   - component: {fileID: 1756593205}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13603,7 +13671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1831458619}
   - component: {fileID: 1831458620}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14301,7 +14369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1893418984}
   - component: {fileID: 1893418985}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Rompi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14727,8 +14795,8 @@ MonoBehaviour:
   checklistStopMachine: {fileID: 1491486232}
   engineStatusText: {fileID: 484474322}
   safetyStatusText: {fileID: 1366003952}
-  warningText: {fileID: 615358566}
   endStateText: {fileID: 389486439}
+  messageText: {fileID: 615358566}
 --- !u!1001 &1939459176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15302,6 +15370,54 @@ Transform:
   - {fileID: 201324012}
   m_Father: {fileID: 617596477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2066079527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2066079529}
+  - component: {fileID: 2066079528}
+  m_Layer: 0
+  m_Name: ZoneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2066079528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066079527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c10d0cafb2e0e64ab134d0594e651dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoneManager
+  safetyZone: {fileID: 979614088}
+  machineZone: {fileID: 346205738}
+  targetZone: {fileID: 1722364643}
+  finishZone: {fileID: 428357001}
+--- !u!4 &2066079529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066079527}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.5919, y: 0.25, z: 33.37461}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2122137292
 GameObject:
   m_ObjectHideFlags: 0
@@ -15572,6 +15688,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 765952499}
   - {fileID: 138393300}
+  - {fileID: 2066079529}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 883097819}
@@ -15582,3 +15699,5 @@ SceneRoots:
   - {fileID: 2135444391}
   - {fileID: 617596476}
   - {fileID: 157530960}
+  - {fileID: 314292684}
+  - {fileID: 1168030782}
