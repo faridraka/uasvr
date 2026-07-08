@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private float verticalVelocity;
     private float xRotation = 0f;
+    private bool movementEnabled = true;
 
     void Start()
     {
@@ -24,7 +25,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleMouseLook();
-        HandleMovement();
+
+        if (movementEnabled)
+            HandleMovement();
+
         HandleCursorToggle();
     }
 
@@ -44,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
     void HandleMovement()
     {
+        if (controller == null || !controller.enabled) return;
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -73,5 +79,13 @@ public class PlayerController : MonoBehaviour
                 Cursor.visible = false;
             }
         }
+    }
+
+    public void SetMovementEnabled(bool value)
+    {
+        movementEnabled = value;
+
+        if (!movementEnabled)
+            verticalVelocity = 0f;
     }
 }

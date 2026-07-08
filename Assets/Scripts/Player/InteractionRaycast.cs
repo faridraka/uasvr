@@ -10,6 +10,8 @@ public class InteractionRaycast : MonoBehaviour
     [Header("UI")]
     [SerializeField] private SpatialUIManager spatialUI;
 
+    [SerializeField] private GameObject interactorRoot;
+
     void Update()
     {
         Ray ray = new Ray(transform.position, transform.forward);
@@ -25,7 +27,8 @@ public class InteractionRaycast : MonoBehaviour
 
                 if (Input.GetKeyDown(interactKey))
                 {
-                    interactable.Interact(gameObject);
+                    GameObject interactor = interactorRoot != null ? interactorRoot : gameObject;
+                    interactable.Interact(interactor);
                 }
 
                 return;
