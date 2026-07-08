@@ -1,73 +1,56 @@
 using UnityEngine;
-using System.Collections;
 
-// Kontrol pergerakan fisik alat berat (garpu forklift naik-turun / lengan crane).
-// Rigidbody di-set kinematic karena gerakannya kita atur manual via MovePosition,
-// tapi tetap kepake buat physics interaction pas nyentuh/gotong LoadCargo.
 public class HeavyMachineryController : MonoBehaviour
 {
-    public Transform forkTransform;
-    public float liftHeight = 1.5f;
-    public float liftSpeed = 1f;
+    [Header("Forklift Movement")]
+    public float moveSpeed = 5f;
+    public float turnSpeed = 80f;
 
-    private Rigidbody forkRigidbody;
-    private Vector3 startPos;
-    private bool isLifting = false;
+    [Header("Lift")]
+    public Transform lift;
+    public float liftSpeed = 8f;
+    public float minHeight = 1f;
+    public float maxHeight = 8f;
+
+    private float currentHeight;
 
     void Start()
     {
-        forkRigidbody = forkTransform.GetComponent<Rigidbody>();
-        if (forkRigidbody != null)
+        currentHeight = lift.localPosition.y;
+    }
+
+    void Update()
+    {
+        float move = Input.GetAxis("Vertical");
+        transform.Translate(Vector3.forward * move * moveSpeed * Time.deltaTime);
+
+        float turn = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up * turn * turnSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.Q))
         {
-            forkRigidbody.isKinematic = true;
+            currentHeight += liftSpeed * Time.deltaTime;
         }
-        startPos = forkTransform.position;
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            currentHeight -= liftSpeed * Time.deltaTime;
+        }
+
+        currentHeight = Mathf.Clamp(currentHeight, minHeight, maxHeight);
+
+        Vector3 pos = lift.localPosition;
+        pos.y = currentHeight;
+        lift.localPosition = pos;
     }
 
     public void ActivateLift()
     {
-        if (!isLifting)
-            StartCoroutine(LiftRoutine());
-    }
-
-    IEnumerator LiftRoutine()
-    {
-        isLifting = true;
-        Vector3 target = startPos + Vector3.up * liftHeight;
-        float t = 0f;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime * liftSpeed;
-            Vector3 newPos = Vector3.Lerp(startPos, target, t);
-            if (forkRigidbody != null)
-                forkRigidbody.MovePosition(newPos);
-            else
-                forkTransform.position = newPos;
-            yield return null;
-        }
-
-        isLifting = false;
+        currentHeight = maxHeight;
     }
 
     public void LowerFork()
     {
-        StartCoroutine(LowerRoutine());
-    }
-
-    IEnumerator LowerRoutine()
-    {
-        Vector3 current = forkTransform.position;
-        float t = 0f;
-        while (t < 1f)
-        {
-            t += Time.deltaTime * liftSpeed;
-            Vector3 newPos = Vector3.Lerp(current, startPos, t);
-            if (forkRigidbody != null)
-                forkRigidbody.MovePosition(newPos);
-            else
-                forkTransform.position = newPos;
-            yield return null;
-        }
+        currentHeight = minHeight;
     }
 }

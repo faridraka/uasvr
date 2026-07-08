@@ -50,7 +50,7 @@ public class ZoneManager : MonoBehaviour
                 break;
 
             case TrainingManager.TrainingStep.StopMachine:
-                SetZones(false, false, false, true);
+                SetZones(false, true, false, false);
                 break;
 
             case TrainingManager.TrainingStep.Complete:
