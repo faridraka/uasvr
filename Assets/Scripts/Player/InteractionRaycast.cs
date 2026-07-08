@@ -8,7 +8,7 @@ public class InteractionRaycast : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;
 
     [Header("UI")]
-[SerializeField] private SpatialUIManager spatialUI;
+    [SerializeField] private SpatialUIManager spatialUI;
 
     void Update()
     {
@@ -20,7 +20,8 @@ public class InteractionRaycast : MonoBehaviour
 
             if (interactable != null)
             {
-                spatialUI.ShowPrompt(interactable.GetPrompt());
+                if (spatialUI != null)
+                    spatialUI.ShowPrompt(interactable.GetPrompt());
 
                 if (Input.GetKeyDown(interactKey))
                 {
@@ -31,6 +32,7 @@ public class InteractionRaycast : MonoBehaviour
             }
         }
 
-        spatialUI.ClearPrompt();
+        if (spatialUI != null)
+            spatialUI.ClearPrompt();
     }
 }
