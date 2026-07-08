@@ -1,12 +1,17 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class HeavyMachineryController : MonoBehaviour
 {
     [Header("Driving")]
-    public float moveSpeed = 5f;
-    public float turnSpeed = 80f;
+    public float moveSpeed = 3.5f;
+    public float turnSpeed = 50f;
+    public float acceleration = 1.8f;
+    public float turnAcceleration = 1.8f;
+    [Range(0.1f, 1f)] public float reverseSpeedMultiplier = 0.45f;
+    [Range(0.1f, 1f)] public float reverseTurnMultiplier = 0.45f;
     [SerializeField] private ForkliftDriveController driveController;
-    [SerializeField] private bool requireEngineOn = false;
+    [SerializeField] private bool requireEngineOn = true;
 
     [Header("Lift")]
     public Transform lift;
@@ -16,9 +21,17 @@ public class HeavyMachineryController : MonoBehaviour
 
     private bool liftUp = false;
     private bool liftDown = false;
+    private float currentMove = 0f;
+    private float currentTurn = 0f;
+    private Rigidbody rb;
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
         if (driveController == null)
             driveController = GetComponent<ForkliftDriveController>();
 
@@ -35,14 +48,15 @@ public class HeavyMachineryController : MonoBehaviour
         {
             liftUp = false;
             liftDown = false;
+            currentMove = 0f;
+            currentTurn = 0f;
             return;
         }
 
-        float move = Input.GetAxis("Vertical");
-        float turn = Input.GetAxis("Horizontal");
-
-        transform.Translate(Vector3.forward * move * moveSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up * turn * turnSpeed * Time.deltaTime);
+        float targetMove = Input.GetAxis("Vertical");
+        float targetTurn = Input.GetAxis("Horizontal");
+        currentMove = Mathf.MoveTowards(currentMove, targetMove, acceleration * Time.deltaTime);
+        currentTurn = Mathf.MoveTowards(currentTurn, targetTurn, turnAcceleration * Time.deltaTime);
 
         liftUp = Input.GetKey(KeyCode.R);
         liftDown = Input.GetKey(KeyCode.F);
@@ -63,10 +77,27 @@ public class HeavyMachineryController : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        if (!CanControl()) return;
+
+        float effectiveMoveSpeed = currentMove < 0f ? moveSpeed * reverseSpeedMultiplier : moveSpeed;
+        float effectiveTurnSpeed = currentMove < 0f ? turnSpeed * reverseTurnMultiplier : turnSpeed;
+
+        Vector3 nextPosition = rb.position + transform.forward * currentMove * effectiveMoveSpeed * Time.fixedDeltaTime;
+        Quaternion nextRotation = rb.rotation * Quaternion.Euler(0f, currentTurn * effectiveTurnSpeed * Time.fixedDeltaTime, 0f);
+
+        rb.MovePosition(nextPosition);
+        rb.MoveRotation(nextRotation);
+    }
+
     private bool CanControl()
     {
         if (driveController == null) return false;
         if (!driveController.IsPlayerInside()) return false;
+
+        if (requireEngineOn && TrainingManager.Instance == null)
+            return false;
 
         if (TrainingManager.Instance != null)
         {

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ForkliftDriveController : MonoBehaviour
 {
+    public static ForkliftDriveController ActiveVehicle { get; private set; }
+
     [Header("Point")]
     public Transform driverSeatPoint;
     public Transform exitPoint;
@@ -17,16 +19,6 @@ public class ForkliftDriveController : MonoBehaviour
     private Quaternion originalPlayerLocalRotation;
 
     private bool isPlayerInside;
-
-    void Update()
-    {
-        if (!isPlayerInside) return;
-
-        if (Input.GetKeyDown(exitKey))
-        {
-            ExitVehicle();
-        }
-    }
 
     public void EnterVehicle(GameObject player)
     {
@@ -65,6 +57,7 @@ public class ForkliftDriveController : MonoBehaviour
         }
 
         isPlayerInside = true;
+        ActiveVehicle = this;
     }
 
     public void ExitVehicle()
@@ -97,10 +90,18 @@ public class ForkliftDriveController : MonoBehaviour
         playerController = null;
         characterController = null;
         isPlayerInside = false;
+
+        if (ActiveVehicle == this)
+            ActiveVehicle = null;
     }
 
     public bool IsPlayerInside()
     {
         return isPlayerInside;
+    }
+
+    public string GetExitPrompt()
+    {
+        return "Tekan " + exitKey + " untuk keluar";
     }
 }

@@ -35,6 +35,19 @@ public class InteractionRaycast : MonoBehaviour
             }
         }
 
+        ForkliftDriveController activeVehicle = ForkliftDriveController.ActiveVehicle;
+
+        if (activeVehicle != null && activeVehicle.IsPlayerInside())
+        {
+            if (spatialUI != null)
+                spatialUI.ShowPrompt(activeVehicle.GetExitPrompt());
+
+            if (Input.GetKeyDown(activeVehicle.exitKey))
+                activeVehicle.ExitVehicle();
+
+            return;
+        }
+
         if (spatialUI != null)
             spatialUI.ClearPrompt();
     }
