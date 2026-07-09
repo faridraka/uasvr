@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class LoadCargo : MonoBehaviour
 {
-    [Header("Cargo Type")]
-    public int cargoTypeIndex = 0;
-
     [Header("Load Point")]
     public Transform loadPoint;
 
@@ -32,13 +29,14 @@ public class LoadCargo : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (other.CompareTag("Cargo") && currentCargo == null)
+            if (IsLoadObject(other.gameObject) && currentCargo == null)
             {
                 currentCargo = other.gameObject;
                 originalParent = currentCargo.transform.parent;
 
                 Rigidbody rb = currentCargo.GetComponent<Rigidbody>();
-                rb.isKinematic = true;
+                if (rb != null)
+                    rb.isKinematic = true;
 
                 currentCargo.transform.SetParent(loadPoint);
                 currentCargo.transform.localPosition = Vector3.zero;
@@ -49,25 +47,14 @@ public class LoadCargo : MonoBehaviour
 
     public void Drop()
     {
+        if (currentCargo == null) return;
+
         Rigidbody rb = currentCargo.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
+        if (rb != null)
+            rb.isKinematic = false;
 
         currentCargo.transform.SetParent(originalParent);
         currentCargo = null;
-    }
-
-    public void OnEnterTargetArea(int targetIndex)
-    {
-        AdvancedLoadTask task = FindObjectOfType<AdvancedLoadTask>();
-
-        if (task != null)
-        {
-            task.CheckDelivery(this, targetIndex);
-        }
-        else
-        {
-            TrainingManager.Instance.ReportLoadDelivered();
-        }
     }
 
     public void ForceDropIncorrectly()
@@ -75,7 +62,17 @@ public class LoadCargo : MonoBehaviour
         if (currentCargo == null) return;
 
         Rigidbody rb = currentCargo.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
-        rb.AddForce(Vector3.down * 2f, ForceMode.Impulse);
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.AddForce(Vector3.down * 2f, ForceMode.Impulse);
+        }
+    }
+
+    private bool IsLoadObject(GameObject obj)
+    {
+        if (obj == null) return false;
+
+        return obj.tag == "Load" || obj.tag == "Cargo";
     }
 }

@@ -139,7 +139,7 @@ public class TrainingManager : MonoBehaviour
 
         if (currentStep == TrainingStep.Operate)
         {
-            ChangeStep(TrainingStep.MoveLoad);
+            ChangeStep(isLoadDelivered ? TrainingStep.StopMachine : TrainingStep.MoveLoad);
         }
     }
 
@@ -159,6 +159,13 @@ public class TrainingManager : MonoBehaviour
     {
         if (isEmergencyStopped) return;
 
+        if (!isInMachineArea)
+        {
+            ShowWarning("Kamu harus berada di Machine Area untuk stop machine.");
+            OnMistake?.Invoke();
+            return;
+        }
+
         if (!isLoadDelivered)
         {
             ShowWarning("Load belum sampai target, jangan matikan mesin dulu.");
@@ -167,8 +174,7 @@ public class TrainingManager : MonoBehaviour
         }
 
         isEngineOn = false;
-        ChangeStep(TrainingStep.Complete);
-        OnTrainingComplete?.Invoke();
+        CompleteStopMachineIfReady();
     }
 
     public void SetPlayerInSafeZone(bool value)
@@ -179,6 +185,21 @@ public class TrainingManager : MonoBehaviour
     public void SetPlayerInMachineArea(bool value)
     {
         isInMachineArea = value;
+
+        if (value)
+            CompleteStopMachineIfReady();
+    }
+
+    private void CompleteStopMachineIfReady()
+    {
+        if (isEmergencyStopped) return;
+        if (!isLoadDelivered) return;
+        if (isEngineOn) return;
+        if (!isInMachineArea) return;
+        if (currentStep == TrainingStep.Complete) return;
+
+        ChangeStep(TrainingStep.Complete);
+        OnTrainingComplete?.Invoke();
     }
 
     public void ReportDangerZoneEntered(string what)

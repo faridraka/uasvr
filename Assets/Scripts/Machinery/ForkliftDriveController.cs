@@ -64,6 +64,14 @@ public class ForkliftDriveController : MonoBehaviour
     {
         if (!isPlayerInside) return;
 
+        if (!CanExitVehicle())
+        {
+            if (TrainingManager.Instance != null)
+                TrainingManager.Instance.ShowWarning("Tidak bisa keluar saat engine menyala di luar Machine Area.");
+
+            return;
+        }
+
         if (currentPlayer != null)
         {
             currentPlayer.transform.SetParent(originalPlayerParent);
@@ -100,8 +108,21 @@ public class ForkliftDriveController : MonoBehaviour
         return isPlayerInside;
     }
 
+    public bool CanExitVehicle()
+    {
+        TrainingManager trainingManager = TrainingManager.Instance;
+
+        if (trainingManager == null)
+            return true;
+
+        return !trainingManager.isEngineOn || trainingManager.isInMachineArea;
+    }
+
     public string GetExitPrompt()
     {
+        if (!CanExitVehicle())
+            return "Balik ke Machine Area untuk keluar";
+
         return "Tekan " + exitKey + " untuk keluar";
     }
 }

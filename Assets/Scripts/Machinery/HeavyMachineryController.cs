@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class HeavyMachineryController : MonoBehaviour
 {
+    private const float InputDeadZone = 0.05f;
+
     [Header("Driving")]
     public float moveSpeed = 3.5f;
     public float turnSpeed = 50f;
@@ -55,11 +57,19 @@ public class HeavyMachineryController : MonoBehaviour
 
         float targetMove = Input.GetAxis("Vertical");
         float targetTurn = Input.GetAxis("Horizontal");
+        bool wantsLiftUp = Input.GetKey(KeyCode.R);
+        bool wantsLiftDown = Input.GetKey(KeyCode.F);
+
+        if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.F)) && AudioManager.Instance != null)
+            AudioManager.Instance.PlayLever();
+
+        ReportOperateControl(targetMove, targetTurn, wantsLiftUp, wantsLiftDown);
+
         currentMove = Mathf.MoveTowards(currentMove, targetMove, acceleration * Time.deltaTime);
         currentTurn = Mathf.MoveTowards(currentTurn, targetTurn, turnAcceleration * Time.deltaTime);
 
-        liftUp = Input.GetKey(KeyCode.R);
-        liftDown = Input.GetKey(KeyCode.F);
+        liftUp = wantsLiftUp;
+        liftDown = wantsLiftDown;
 
         if (lift != null)
         {
@@ -106,6 +116,22 @@ public class HeavyMachineryController : MonoBehaviour
         }
 
         return true;
+    }
+
+    private void ReportOperateControl(float moveInput, float turnInput, bool wantsLiftUp, bool wantsLiftDown)
+    {
+        TrainingManager trainingManager = TrainingManager.Instance;
+        if (trainingManager == null || trainingManager.currentStep != TrainingManager.TrainingStep.Operate)
+            return;
+
+        bool hasControlInput =
+            Mathf.Abs(moveInput) > InputDeadZone ||
+            Mathf.Abs(turnInput) > InputDeadZone ||
+            wantsLiftUp ||
+            wantsLiftDown;
+
+        if (hasControlInput)
+            trainingManager.OperateControl();
     }
 
     public void ActivateLift()

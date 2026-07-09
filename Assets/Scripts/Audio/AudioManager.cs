@@ -16,10 +16,22 @@ public class AudioManager : MonoBehaviour
     public AudioClip warningBeepClip;
     public AudioClip successChimeClip;
 
+    private bool engineLoopPlaying = false;
+
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+    }
+
+    void Update()
+    {
+        if (TrainingManager.Instance == null) return;
+
+        if (TrainingManager.Instance.isEngineOn)
+            PlayEngineStart();
+        else
+            PlayEngineStop();
     }
 
     void OnEnable()
@@ -38,20 +50,42 @@ public class AudioManager : MonoBehaviour
         TrainingManager.Instance.OnTrainingComplete -= PlaySuccessChime;
     }
 
-    public void PlayClick() { if (clickClip != null) sfxSource.PlayOneShot(clickClip); }
-    public void PlayLever() { if (leverClip != null) sfxSource.PlayOneShot(leverClip); }
-    public void PlayWarningBeep() { if (warningBeepClip != null) sfxSource.PlayOneShot(warningBeepClip); }
-    public void PlaySuccessChime() { if (successChimeClip != null) sfxSource.PlayOneShot(successChimeClip); }
+    public void PlayClick() { PlayOneShot(clickClip); }
+    public void PlayLever() { PlayOneShot(leverClip); }
+    public void PlayWarningBeep() { PlayOneShot(warningBeepClip); }
+    public void PlaySuccessChime() { PlayOneShot(successChimeClip); }
 
     public void PlayEngineStart()
     {
-        if (engineStartClip != null) sfxSource.PlayOneShot(engineStartClip);
-        if (engineLoopSource != null) engineLoopSource.Play();
+        if (engineLoopSource == null || engineStartClip == null)
+            return;
+
+        if (engineLoopPlaying && engineLoopSource.isPlaying)
+            return;
+
+        engineLoopSource.clip = engineStartClip;
+        engineLoopSource.loop = true;
+        engineLoopSource.Play();
+        engineLoopPlaying = true;
     }
 
     public void PlayEngineStop()
     {
-        if (engineStopClip != null) sfxSource.PlayOneShot(engineStopClip);
-        if (engineLoopSource != null) engineLoopSource.Stop();
+        if (engineLoopSource == null)
+        {
+            engineLoopPlaying = false;
+            return;
+        }
+
+        if (engineLoopSource.isPlaying)
+            engineLoopSource.Stop();
+
+        engineLoopPlaying = false;
+    }
+
+    private void PlayOneShot(AudioClip clip)
+    {
+        if (clip != null && sfxSource != null)
+            sfxSource.PlayOneShot(clip);
     }
 }
